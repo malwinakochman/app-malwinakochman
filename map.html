@@ -103,29 +103,26 @@
     <div id="map" style="width: 100%; height: 60vh;"></div>
       <script src="https://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
       <script>
-          if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(function(position) {
-                  var latitude = position.coords.latitude;
-                  var longitude = position.coords.longitude;
-                    var mapOptions = {
-                      center: [latitude, longitude],
-                      zoom: 15
-                  };
-                  var map = new L.map('map', mapOptions);
-                    var layer = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-                  map.addLayer(layer);
-                  var marker = L.marker([latitude, longitude]);
-                  marker.bindPopup('You are here!').openPopup();
-                  marker.addTo(map);
+        var map = L.map('map').setView([0, 0], 13);
   
-              }, function(error) {
-                  console.error("Error getting location: ", error);
-                  alert('Error getting location: ' + error.message);
-              });
-          } else {
-              alert("Geolocation is not supported by this browser.");
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+        }).addTo(map);
+  
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+  
+            map.setView([lat, lng], 13);
+  
+            L.marker([lat, lng]).addTo(map);
+          },
+          function (error) {
+            console.log('Error getting current location:', error);
           }
+        );
       </script>
-            </div>
+      </div>
 </body>
 </html>
