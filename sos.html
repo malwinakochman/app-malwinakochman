@@ -96,12 +96,8 @@
     <script>
       function triggerSOS() {
         if ("vibrate" in navigator) {
-          navigator.vibrate([ 
-          300, 300, 300, 300, 300, 
-          500, 
-          1000, 1000, 1000, 1000, 1000, 
-          500, 
-          300, 300, 300, 300, 300
+          navigator.vibrate([   100, 30, 100, 30, 100, 30, 200, 30, 200, 30, 200, 30, 100, 30, 100, 30, 100,
+
           ]);
         } else {
           alert("Your device does not support vibration.");
