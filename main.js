@@ -13,7 +13,6 @@ window.onload = () => {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
 
-            // Inicjalizacja mapy Leaflet na pozycji użytkownika
             var map = L.map('map').setView([latitude, longitude], 13);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -21,7 +20,6 @@ window.onload = () => {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
 
-            // Dodanie markera na pozycji użytkownika
             var marker = L.marker([latitude, longitude]).addTo(map);
             marker.bindPopup("Jesteś tutaj!").openPopup();
 
