@@ -2,7 +2,13 @@ var cacheName = 'hello-pwa';
 var filesToCache = [
   '/',
   '/index.html',
-  '/main.js'
+  '/main.js',
+  '/icon-128.png',
+  '/icon-144.png',
+  '/icon-152.png',
+  '/icon-192.png',
+  '/icon-256.png',
+  '/icon-512.png',
 ];
 
 self.addEventListener('install', function(e) {
