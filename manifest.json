@@ -1,6 +1,6 @@
 {
-    "name": "Hello World",
-    "short_name": "Hello",
+    "name": "Security App",
+    "short_name": "Security App",
     "icons": [{
       "src": "icon-128.png",
         "sizes": "128x128",
