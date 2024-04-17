@@ -1,47 +1,83 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Security App</title>
   <link rel="stylesheet" href="css/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="white"/>
+  <meta name="theme-color" content="white" />
   <link rel="manifest" href="/manifest.json">
-  
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />  
-    <link rel="apple-touch-icon" href="icon-152.png">   
-    <meta name="theme-color" content="white"/>  
-    <meta name="apple-mobile-web-app-capable" content="yes">  
-    <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
-    <meta name="apple-mobile-web-app-title" content="Hello World"> 
-    <meta name="msapplication-TileImage" content="images/hello-icon-144.png">  
-    <meta name="msapplication-TileColor" content="#FFFFFF">
 
-    <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-    <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="icon-152.png">
+  <meta name="theme-color" content="white" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Hello World">
+  <meta name="msapplication-TileImage" content="images/hello-icon-144.png">
+  <meta name="msapplication-TileColor" content="#FFFFFF">
+
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 </head>
+
 <body class="fullscreen">
   <div class="container">
     <h1 class="title">Security App</h1>
     <button id="loadMapButton">Load Map</button>
-    <div id = "map" style = "width: 900px; height: 580px"></div>
-      <script>
-         // Creating map options
-         var mapOptions = {
-            center: [17.385044, 78.486671],
-            zoom: 10
-         }
-         
-         // Creating a map object
-         var map = new L.map('map', mapOptions);
-         
-         // Creating a Layer object
-         var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-         
-         // Adding layer to the map
-         map.addLayer(layer);
-      </script>
+    <div id="map" style="width: 900px; height: 580px;"></div>
+    <script src="https://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script>
+        // Sprawdzanie, czy przeglądarka wspiera Geolocation API
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                // Pobieranie szerokości i długości geograficznej
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+
+                // Ustawienia mapy z uwzględnieniem pobranej lokalizacji
+                var mapOptions = {
+                    center: [latitude, longitude],
+                    zoom: 15
+                };
+
+                // Tworzenie obiektu mapy
+                var map = new L.map('map', mapOptions);
+
+                // Tworzenie warstwy kafelków
+                var layer = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+                map.addLayer(layer);
+
+                // Tworzenie i dodawanie markera na mapie
+                var marker = L.marker([latitude, longitude]);
+                marker.bindPopup('You are here!').openPopup();
+                marker.addTo(map);
+
+            }, function(error) {
+                console.error("Error getting location: ", error);
+                alert('Error getting location: ' + error.message);
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    </script>
+
   </div>
+
+  <h1>Funkcja SOS</h1>
+  <p>Kliknij poniższy przycisk, aby wywołać funkcję SOS:</p>
+  <button onclick="triggerSOS()">Wyślij SOS</button>
+  <script>
+    function triggerSOS() {
+      if ("vibrate" in navigator) {
+        navigator.vibrate([100, 100, 100, 300, 100, 300, 100, 100, 100]);
+      } else {
+        alert("Twoje urządzenie nie obsługuje wibracji.");
+      }
+    }
+  </script>
   <script src="js/main.js"></script>
 </body>
+
 </html>
