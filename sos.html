@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funkcja SOS</title>
+</head>
+<body>
+    <h1>Funkcja SOS</h1>
+    <p>Kliknij poniższy przycisk, aby wywołać funkcję SOS:</p>
+    <button onclick="triggerSOS()">Wyślij SOS</button>
+    <script>
+        function triggerSOS() {
+            if ("vibrate" in navigator) {
+                navigator.vibrate([100, 100, 100, 300, 100, 300, 100, 100, 100]);
+            } else {
+                alert("Twoje urządzenie nie obsługuje wibracji.");
+            }
+        }
+    </script>
+</body>
+</html>
